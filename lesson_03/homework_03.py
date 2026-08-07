@@ -8,8 +8,6 @@ for alice in alice_in_wonderland:
 # task 03 == Виведіть змінну alice_in_wonderland на друк
 print(alice_in_wonderland)
 
-
-
 """
     # Задачі 04 -10:
     # Переведіть задачі з книги "Математика, 5 клас"
