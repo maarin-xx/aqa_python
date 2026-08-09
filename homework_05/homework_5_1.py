@@ -75,4 +75,3 @@ for price in prices:
             break
 
 print(f'Five elements sorted by price ascending:  {top_five}')
-
