@@ -15,7 +15,7 @@ class Rhombus:
 
         self.side_a = side_a
         self.angle_a = angle_a
-        self.angle_b = 180 - angle_a
+        #self.angle_b = 180 - angle_a
 
 
     def __setattr__(self, name, value):
@@ -57,3 +57,10 @@ class Rhombus:
         return f'Rhombus with: side_a = {self.side_a}, angle_a = {self.angle_a}, angle_b = {self.angle_b}'
 
 
+
+r7 = Rhombus(1, 170 ) # angle_a=170, angle_b=10
+print(r7)
+r7.angle_a=1 # angle_a=1, angle_b=179
+print(r7)
+r7.angle_b=15 # angle_a=165, angle_b=15
+print(r7)
