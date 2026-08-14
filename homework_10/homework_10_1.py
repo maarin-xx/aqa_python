@@ -20,20 +20,20 @@ class Employee:
         self.salary = salary
 
 class Manager(Employee):
-    def __init__(self, name, salary, department):
+    def __init__(self, name, salary, department, **kwargs):
         self.department = department
-        super().__init__(name, salary)
+        super().__init__(name, salary, **kwargs)
 
 
 class Developer(Employee):
-    def __init__(self, name, salary, programming_language = ''):
+    def __init__(self, name, salary, programming_language, **kwargs):
         self.programming_language = programming_language
-        super().__init__(name, salary)
+        super().__init__(name, salary, **kwargs)
 
 class TeamLead(Manager, Developer):
-    def __init__(self, name, salary, department, team_size):
+    def __init__(self, name, salary, department, team_size, **kwargs):
         self.team_size = team_size
-        super().__init__(name, salary, department)
+        super().__init__(name, salary, department, **kwargs)
 
     def check_attr(self):
         attr = ['name', 'salary', 'department', 'programming_language']
@@ -42,10 +42,15 @@ class TeamLead(Manager, Developer):
         return f'If there are all attr: {result}'
 
 
-Timka = TeamLead('Timka', 12000, 'backend1', 4)
+Timka = TeamLead('Timka', 12000, 'backend1', 4, programming_language='python')
 
 print(Timka.check_attr())
+print(Timka.programming_language)
+manager = Manager('Manager', 3000, 'manager_dep')
+dev = Developer('Developer', 6000,  'python')
 
+print( manager.salary)
+print( dev.programming_language, dev.name)
 
 
 
