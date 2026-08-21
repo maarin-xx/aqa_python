@@ -37,3 +37,14 @@ class TeamLead(Manager, Developer):
         #attr = [hasattr(self, attr) for attr in attr if hasattr(self, attr)]
         result = all(hasattr(self, attr) for attr in attr)
         return f'If there are all attr: {result}'
+
+#task2
+
+'''Є list з даними lst1 = ['1', '2', 3, True, 'False', 5, '6', 7, 8, 'Python', 9, 0, 'Lorem Ipsum'].
+Напишіть код, який свормує новий list (наприклад lst2), який містить лише змінні типу стрінг,
+ які присутні в lst1. Данні в лісті можуть бути будь якими'''
+
+def new_list_with_str_only(lst):
+
+    lst2 = [k for k in lst if type(k) is str]
+    return lst2
