@@ -1,6 +1,6 @@
 import assertpy
 import homeworks as hw
-import functions as f
+import pytest
 
 
 class Test_TeamLead:
@@ -70,7 +70,7 @@ class Test_list:
 
         lst_result = hw.new_list_with_str_only(self.lst1)
 
-        assert all(isinstance(item, str) for item in lst_result)
+        assert all(isinstance(item, str) for item in lst_result), f'{lst_result} is not a list'
 
 
     def test_result_of_a_new_list(self):
@@ -79,7 +79,46 @@ class Test_list:
 
         assert lst_result == self.lst2_exp, f'{lst_result} != {self.lst2_exp}'
 
+"""Створіть масив зі строками, які будуть складатися з чисел, які розділені комою. Наприклад:
+[”1,2,3,4”, ”1,2,3,4,50” ”qwerty1,2,3”]
+Для кожного елементу списку виведіть суму всіх чисел 
+"""
+class Test_sum_of_numbers_in_str_list:
 
+    @pytest.mark.parametrize("data, expected", [
+        (["1,2,3,4"], [10.0]),
+        (["1,2,3,4,50"], [60.0]),
+        (["0,0,0"], [0.0]),
+        (["-1,2,3"], [4.0]),
+        (["1.5,2.5"], [4.0]),
+        ([" 1, 2, 3, 4 "], [10.0]),
+    ])
+    def test_valid_data(self, data, expected):
+        assert hw.sum_list(data) == expected, f'{data} is not a list'
 
+    @pytest.mark.parametrize("data, expected", [
+        (["qwerty1,2,3"], ["Cannot do this"]),
+        (["None,1"], ["Cannot do this"]),
+        (["1, True"], ["Cannot do this"]),
+        (["1,2,"], ["Cannot do this"]),
+        ([""], ["Cannot do this"]),
+        (["1,@,3"], ["Cannot do this"]),
+    ])
+    def test_invalid_data(self, data, expected):
+        assert hw.sum_list(data) == expected
 
+    data1 = ["1,2,3,4", "1,2,3,4,50", "qwerty1,2,3", "22.11", "None, 1", "1, True"]
+    def test_result_for_list_with_lists(self):
+        assert hw.sum_list(Test_sum_of_numbers_in_str_list.data1) == [10.0, 60.0, 'Cannot do this', 22.11, 'Cannot do this', 'Cannot do this']
+
+    def test_count_of_sum_equal_count_of_strings(self):
+
+        result = hw.sum_list(Test_sum_of_numbers_in_str_list.data1)
+
+        assert len(Test_sum_of_numbers_in_str_list.data1) == len(result), (f'len of list = {len(Test_sum_of_numbers_in_str_list.data1)}'
+                                                                           f'but sum counted for {len(result)}')
+
+        
+        
+        
 
