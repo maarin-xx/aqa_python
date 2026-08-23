@@ -19,10 +19,12 @@ class Test_TeamLead:
 
         team_lead = hw.TeamLead('Timka', 12000, 'backend1', 4, programming_language='python')
 
-        assertpy.assert_that(team_lead, f'team_lead is not an instance of TeamLead').is_instance_of(hw.TeamLead)
-        assertpy.assert_that(team_lead, f'team_lead is not an instance of  Manager').is_instance_of(hw.Manager)
-        assertpy.assert_that(team_lead, f'team_lead is not an instance of  Developer').is_instance_of(hw.Developer)
-        assertpy.assert_that(team_lead, f'team_lead is not an instance of  Employee').is_instance_of(hw.Employee)
+        with assertpy.soft_assertions():
+
+            assertpy.assert_that(team_lead, f'team_lead is not an instance of TeamLead').is_instance_of(hw.TeamLead)
+            assertpy.assert_that(team_lead, f'team_lead is not an instance of  Manager').is_instance_of(hw.Manager)
+            assertpy.assert_that(team_lead, f'team_lead is not an instance of  Developer').is_instance_of(hw.Developer)
+            assertpy.assert_that(team_lead, f'team_lead is not an instance of  Employee').is_instance_of(hw.Employee)
 
         # assert isinstance(team_lead, hw.TeamLead)
         # assert isinstance(team_lead, hw.Manager)
