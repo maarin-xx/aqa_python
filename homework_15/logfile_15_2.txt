@@ -1,0 +1,1 @@
+2026-09-03 08:00:08,604 - ERROR - /Users/maarin_xx/PycharmProjects/aqa_python/homework_15/homework_15_2_json/login.json is not valid, Expecting ',' delimiter: line 8 column 1 (char 324)
