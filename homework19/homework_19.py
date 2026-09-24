@@ -29,6 +29,7 @@ def get_heartbeat_lines(file_name):
     return heartbeat_lines
 
 def get_timestamp(heartbeat_line):
+
     parts = heartbeat_line.split()
     timestamp_index = parts.index("Timestamp")
     timestamp = parts[timestamp_index + 1]
@@ -36,6 +37,7 @@ def get_timestamp(heartbeat_line):
     return datetime.strptime(timestamp, "%H:%M:%S")
 
 def time_dif(current_line, next_line):
+
     timestamp_current = get_timestamp(current_line)
     timestamp_next = get_timestamp(next_line)
 
