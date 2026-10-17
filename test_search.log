@@ -1,0 +1,187 @@
+2026-10-16 20:46:46,870 - INFO - Starting successful login test
+2026-10-16 20:46:46,878 - INFO - Login successful
+2026-10-16 20:49:28,162 - INFO - Starting successful login test
+2026-10-16 20:49:28,170 - INFO - Login successful
+2026-10-16 20:49:28,173 - INFO - Checking cars response: limit=1
+2026-10-16 20:49:28,174 - INFO - Cars response is valid: received 1 cars
+2026-10-16 20:49:28,175 - INFO - Checking cars response: limit=5
+2026-10-16 20:49:28,177 - INFO - Cars response is valid: received 5 cars
+2026-10-16 20:49:28,177 - INFO - Checking cars response: limit=10
+2026-10-16 20:49:28,179 - INFO - Cars response is valid: received 10 cars
+2026-10-16 20:51:22,969 - INFO - Starting successful login test
+2026-10-16 20:51:22,979 - INFO - Login successful
+2026-10-16 20:51:22,981 - INFO - Checking cars response: limit=1
+2026-10-16 20:51:22,983 - INFO - Cars response is valid: received 1 cars
+2026-10-16 20:51:22,984 - INFO - Checking cars response: limit=5
+2026-10-16 20:51:22,985 - INFO - Cars response is valid: received 5 cars
+2026-10-16 20:51:22,986 - INFO - Checking cars response: limit=10
+2026-10-16 20:51:22,987 - INFO - Cars response is valid: received 10 cars
+2026-10-16 20:51:37,159 - INFO - Starting successful login test
+2026-10-16 20:51:37,167 - INFO - Login successful
+2026-10-16 20:51:37,171 - INFO - Checking cars response: limit=1
+2026-10-16 20:51:37,173 - INFO - Cars response is valid: received 1 cars
+2026-10-16 20:51:37,173 - INFO - Checking cars response: limit=5
+2026-10-16 20:51:37,175 - INFO - Cars response is valid: received 5 cars
+2026-10-16 20:51:37,175 - INFO - Checking cars response: limit=10
+2026-10-16 20:51:37,177 - ERROR - Test failed: assert 10 == 11
+ +  where 10 = len([{'brand': 'Acura', 'engine_volume': 2.4, 'price': 48000, 'year': 2020}, {'brand': 'Audi', 'engine_volume': 1.8, 'price': 45000, 'year': 2020}, {'brand': 'BMW', 'engine_volume': 2.0, 'price': 50000, 'year': 2018}, {'brand': 'Bugatti', 'engine_volume': 8.0, 'price': 350000, 'year': 2019}, {'brand': 'Chevrolet', 'engine_volume': 1.8, 'price': 28000, 'year': 2018}, {'brand': 'Ferrari', 'engine_volume': 6.3, 'price': 250000, 'year': 2021}, {'brand': 'Ford', 'engine_volume': 2.2, 'price': 32000, 'year': 2015}, {'brand': 'Honda', 'engine_volume': 1.6, 'price': 30000, 'year': 2016}, {'brand': 'Hyundai', 'engine_volume': 1.6, 'price': 29000, 'year': 2020}, {'brand': 'Infiniti', 'engine_volume': 3.5, 'price': 52000, 'year': 2019}])
+2026-10-16 20:52:16,727 - INFO - Starting successful login test
+2026-10-16 20:52:16,738 - INFO - Login successful
+2026-10-16 20:52:16,741 - INFO - Checking cars response: limit=1
+2026-10-16 20:52:16,744 - ERROR - Test failed: assert 'prices' in {'brand': 'Acura', 'engine_volume': 2.4, 'price': 48000, 'year': 2020}
+2026-10-16 20:52:16,762 - INFO - Checking cars response: limit=5
+2026-10-16 20:52:16,764 - ERROR - Test failed: assert 'prices' in {'brand': 'Acura', 'engine_volume': 2.4, 'price': 48000, 'year': 2020}
+2026-10-16 20:52:16,767 - INFO - Checking cars response: limit=10
+2026-10-16 20:52:16,768 - ERROR - Test failed: assert 'prices' in {'brand': 'Acura', 'engine_volume': 2.4, 'price': 48000, 'year': 2020}
+2026-10-16 20:55:23,796 - INFO - Starting successful login test
+2026-10-16 20:55:23,851 - INFO - Login successful
+2026-10-16 20:55:23,855 - INFO - Checking cars response: limit=1
+2026-10-16 20:55:23,857 - INFO - Cars response is valid: received 1 cars
+2026-10-16 20:55:23,858 - INFO - Checking cars response: limit=5
+2026-10-16 20:55:23,859 - INFO - Cars response is valid: received 5 cars
+2026-10-16 20:55:23,860 - INFO - Checking cars response: limit=10
+2026-10-16 20:55:23,861 - INFO - Cars response is valid: received 10 cars
+2026-10-16 20:55:23,862 - INFO - Checking cars sorting: sort_by=price
+2026-10-16 20:55:23,864 - INFO - Cars are correctly sorted by 'price'
+2026-10-16 20:55:23,864 - INFO - Checking cars sorting: sort_by=brand
+2026-10-16 20:55:23,865 - INFO - Cars are correctly sorted by 'brand'
+2026-10-16 20:55:23,866 - INFO - Checking cars sorting: sort_by=year
+2026-10-16 20:55:23,867 - INFO - Cars are correctly sorted by 'year'
+2026-10-16 20:55:23,868 - INFO - Checking cars sorting: sort_by=engine_volume
+2026-10-16 20:55:23,869 - INFO - Cars are correctly sorted by 'engine_volume'
+2026-10-16 20:57:33,125 - INFO - Starting successful login test
+2026-10-16 20:57:33,135 - INFO - Login successful
+2026-10-16 20:57:33,137 - INFO - Checking cars response: limit=1
+2026-10-16 20:57:33,139 - INFO - Cars response is valid: received 1 cars
+2026-10-16 20:57:33,140 - INFO - Checking cars response: limit=5
+2026-10-16 20:57:33,141 - INFO - Cars response is valid: received 5 cars
+2026-10-16 20:57:33,142 - INFO - Checking cars response: limit=10
+2026-10-16 20:57:33,143 - INFO - Cars response is valid: received 10 cars
+2026-10-16 20:57:33,143 - INFO - Checking cars sorting: sort_by=price
+2026-10-16 20:57:33,145 - INFO - Cars are correctly sorted by 'price'
+2026-10-16 20:57:33,146 - INFO - Checking cars sorting: sort_by=brand
+2026-10-16 20:57:33,147 - INFO - Cars are correctly sorted by 'brand'
+2026-10-16 20:57:33,148 - INFO - Checking cars sorting: sort_by=year
+2026-10-16 20:57:33,149 - INFO - Cars are correctly sorted by 'year'
+2026-10-16 20:57:33,149 - INFO - Checking cars sorting: sort_by=engine_volume
+2026-10-16 20:57:33,151 - INFO - Cars are correctly sorted by 'engine_volume'
+2026-10-16 20:57:33,151 - INFO - Checking data types in cars response
+2026-10-16 20:57:33,153 - INFO - Data types are valid for 25 cars
+2026-10-16 20:58:49,673 - INFO - Starting successful login test
+2026-10-16 20:58:49,685 - INFO - Login successful
+2026-10-16 20:58:49,688 - INFO - Checking cars response: limit=1
+2026-10-16 20:58:49,690 - INFO - Cars response is valid: received 1 cars
+2026-10-16 20:58:49,691 - INFO - Checking cars response: limit=5
+2026-10-16 20:58:49,692 - INFO - Cars response is valid: received 5 cars
+2026-10-16 20:58:49,692 - INFO - Checking cars response: limit=10
+2026-10-16 20:58:49,693 - INFO - Cars response is valid: received 10 cars
+2026-10-16 20:58:49,694 - INFO - Checking cars sorting: sort_by=price
+2026-10-16 20:58:49,695 - INFO - Cars are correctly sorted by 'price'
+2026-10-16 20:58:49,696 - INFO - Checking cars sorting: sort_by=brand
+2026-10-16 20:58:49,697 - INFO - Cars are correctly sorted by 'brand'
+2026-10-16 20:58:49,698 - INFO - Checking cars sorting: sort_by=year
+2026-10-16 20:58:49,699 - INFO - Cars are correctly sorted by 'year'
+2026-10-16 20:58:49,700 - INFO - Checking cars sorting: sort_by=engine_volume
+2026-10-16 20:58:49,701 - INFO - Cars are correctly sorted by 'engine_volume'
+2026-10-16 20:58:49,702 - INFO - Checking data types in cars response
+2026-10-16 20:58:49,704 - INFO - Data types are valid for 25 cars
+2026-10-16 20:58:49,704 - INFO - Checking access to cars without authorization
+2026-10-16 20:58:49,708 - INFO - Unauthorized access correctly rejected
+2026-10-16 20:59:54,455 - INFO - Starting successful login test
+2026-10-16 20:59:54,467 - INFO - Login successful
+2026-10-16 20:59:54,470 - INFO - Checking cars response: limit=1
+2026-10-16 20:59:54,471 - INFO - Cars response is valid: received 1 cars
+2026-10-16 20:59:54,473 - INFO - Checking cars response: limit=5
+2026-10-16 20:59:54,475 - INFO - Cars response is valid: received 5 cars
+2026-10-16 20:59:54,475 - INFO - Checking cars response: limit=10
+2026-10-16 20:59:54,477 - INFO - Cars response is valid: received 10 cars
+2026-10-16 20:59:54,478 - INFO - Checking cars sorting: sort_by=price
+2026-10-16 20:59:54,479 - INFO - Cars are correctly sorted by 'price'
+2026-10-16 20:59:54,480 - INFO - Checking cars sorting: sort_by=brand
+2026-10-16 20:59:54,481 - INFO - Cars are correctly sorted by 'brand'
+2026-10-16 20:59:54,482 - INFO - Checking cars sorting: sort_by=year
+2026-10-16 20:59:54,485 - INFO - Cars are correctly sorted by 'year'
+2026-10-16 20:59:54,486 - INFO - Checking cars sorting: sort_by=engine_volume
+2026-10-16 20:59:54,488 - INFO - Cars are correctly sorted by 'engine_volume'
+2026-10-16 20:59:54,489 - INFO - Checking data types in cars response
+2026-10-16 20:59:54,490 - INFO - Data types are valid for 25 cars
+2026-10-16 20:59:54,491 - INFO - Checking access to cars without authorization
+2026-10-16 20:59:54,492 - INFO - Unauthorized access correctly rejected
+2026-10-16 21:15:52,896 - INFO - Starting successful login test
+2026-10-16 21:15:52,906 - INFO - Login successful
+2026-10-16 21:15:52,909 - INFO - Checking cars response: limit=1
+2026-10-16 21:15:52,911 - INFO - Cars response is valid: received 1 cars
+2026-10-16 21:15:52,912 - INFO - Checking cars response: limit=5
+2026-10-16 21:15:52,913 - INFO - Cars response is valid: received 5 cars
+2026-10-16 21:15:52,913 - INFO - Checking cars response: limit=10
+2026-10-16 21:15:52,914 - INFO - Cars response is valid: received 10 cars
+2026-10-16 21:15:52,915 - INFO - Checking cars sorting: sort_by=price
+2026-10-16 21:15:52,917 - INFO - Cars are correctly sorted by 'price'
+2026-10-16 21:15:52,917 - INFO - Checking cars sorting: sort_by=brand
+2026-10-16 21:15:52,919 - INFO - Cars are correctly sorted by 'brand'
+2026-10-16 21:15:52,919 - INFO - Checking cars sorting: sort_by=year
+2026-10-16 21:15:52,920 - INFO - Cars are correctly sorted by 'year'
+2026-10-16 21:15:52,921 - INFO - Checking cars sorting: sort_by=engine_volume
+2026-10-16 21:15:52,922 - INFO - Cars are correctly sorted by 'engine_volume'
+2026-10-16 21:15:52,923 - INFO - Checking data types in cars response
+2026-10-16 21:15:52,924 - INFO - Data types are valid for 25 cars
+2026-10-16 21:15:52,925 - INFO - Checking access to cars without authorization
+2026-10-16 21:15:52,926 - INFO - Unauthorized access correctly rejected
+2026-10-16 21:15:52,927 - INFO - Checking login with an unknown username
+2026-10-16 21:15:52,928 - INFO - Login correctly rejected for an unknown user
+2026-10-16 21:15:52,929 - INFO - Checking login with a wrong password
+2026-10-16 21:15:52,930 - INFO - Login correctly rejected with a wrong password
+2026-10-16 21:16:22,703 - INFO - Starting successful login test
+2026-10-16 21:16:22,710 - INFO - Login successful
+2026-10-16 21:16:22,712 - INFO - Checking cars response: limit=1
+2026-10-16 21:16:22,714 - INFO - Cars response is valid: received 1 cars
+2026-10-16 21:16:22,714 - INFO - Checking cars response: limit=5
+2026-10-16 21:16:22,716 - INFO - Cars response is valid: received 5 cars
+2026-10-16 21:16:22,716 - INFO - Checking cars response: limit=10
+2026-10-16 21:16:22,718 - INFO - Cars response is valid: received 10 cars
+2026-10-16 21:16:22,719 - INFO - Checking cars sorting: sort_by=price
+2026-10-16 21:16:22,720 - INFO - Cars are correctly sorted by 'price'
+2026-10-16 21:16:22,720 - INFO - Checking cars sorting: sort_by=brand
+2026-10-16 21:16:22,721 - INFO - Cars are correctly sorted by 'brand'
+2026-10-16 21:16:22,722 - INFO - Checking cars sorting: sort_by=year
+2026-10-16 21:16:22,723 - INFO - Cars are correctly sorted by 'year'
+2026-10-16 21:16:22,723 - INFO - Checking cars sorting: sort_by=engine_volume
+2026-10-16 21:16:22,724 - INFO - Cars are correctly sorted by 'engine_volume'
+2026-10-16 21:16:22,725 - INFO - Checking data types in cars response
+2026-10-16 21:16:22,726 - INFO - Data types are valid for 25 cars
+2026-10-16 21:16:22,727 - INFO - Checking access to cars without authorization
+2026-10-16 21:16:22,728 - INFO - Unauthorized access correctly rejected
+2026-10-16 21:16:22,729 - INFO - Checking login with an unknown username
+2026-10-16 21:16:22,730 - INFO - Login correctly rejected for an unknown user
+2026-10-16 21:16:22,731 - INFO - Checking login with a wrong password
+2026-10-16 21:16:22,732 - ERROR - Login with a wrong password test failed: Expected status code 401, got 401
+assert 401 == 200
+ +  where 401 = <Response [401]>.status_code
+2026-10-16 21:18:11,957 - INFO - Starting successful login test
+2026-10-16 21:18:11,973 - INFO - Login successful
+2026-10-16 21:18:11,978 - INFO - Checking cars response: limit=1
+2026-10-16 21:18:11,982 - INFO - Cars response is valid: received 1 cars
+2026-10-16 21:18:11,984 - INFO - Checking cars response: limit=5
+2026-10-16 21:18:11,986 - INFO - Cars response is valid: received 5 cars
+2026-10-16 21:18:11,987 - INFO - Checking cars response: limit=10
+2026-10-16 21:18:11,990 - INFO - Cars response is valid: received 10 cars
+2026-10-16 21:18:11,991 - INFO - Checking cars sorting: sort_by=price
+2026-10-16 21:18:11,993 - INFO - Cars are correctly sorted by 'price'
+2026-10-16 21:18:11,994 - INFO - Checking cars sorting: sort_by=brand
+2026-10-16 21:18:11,995 - INFO - Cars are correctly sorted by 'brand'
+2026-10-16 21:18:11,996 - INFO - Checking cars sorting: sort_by=year
+2026-10-16 21:18:11,999 - INFO - Cars are correctly sorted by 'year'
+2026-10-16 21:18:12,000 - INFO - Checking cars sorting: sort_by=engine_volume
+2026-10-16 21:18:12,001 - INFO - Cars are correctly sorted by 'engine_volume'
+2026-10-16 21:18:12,002 - INFO - Checking data types in cars response
+2026-10-16 21:18:12,003 - INFO - Data types are valid for 25 cars
+2026-10-16 21:18:12,004 - INFO - Checking access to cars without authorization
+2026-10-16 21:18:12,006 - INFO - Unauthorized access correctly rejected
+2026-10-16 21:18:12,007 - INFO - Checking login with an unknown username
+2026-10-16 21:18:12,008 - INFO - Login correctly rejected for an unknown user
+2026-10-16 21:18:12,009 - INFO - Checking login with a wrong password
+2026-10-16 21:18:12,010 - INFO - Login correctly rejected with a wrong password
+2026-10-16 21:18:12,011 - INFO - Checking login with an invalid token
+2026-10-16 21:18:12,012 - ERROR - Login with a wrong password test failed: Expected status code 422, got 422
+assert 422 == 4220
+ +  where 422 = <Response [422]>.status_code
