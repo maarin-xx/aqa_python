@@ -2,6 +2,8 @@ import pytest
 import requests
 from requests.auth import HTTPBasicAuth
 import logging
+from assertpy import assert_that, soft_assertions
+from marshmallow import Schema, fields, ValidationError
 
 logging.basicConfig(
     level=logging.INFO,
@@ -13,6 +15,22 @@ logging.basicConfig(
     force=True
 )
 
+class CarsSchema(Schema):
+    brand = fields.String(required=True)
+    engine_volume = fields.Float(required=True)
+    price = fields.Float(required=True)
+    year = fields.Integer(required=True, strict=True)
+
+
+def check_status_code(response, expected_status_code):
+    try:
+        assert response.status_code == expected_status_code, (
+            f"Expected status code {expected_status_code}, "
+            f"got {response.status_code}"
+        )
+    except AssertionError as error:
+        logging.error(f"Status code check failed: {error}")
+        raise
 
 @pytest.fixture(scope="class")
 def authorized_session():
@@ -22,7 +40,7 @@ def authorized_session():
         auth=HTTPBasicAuth("test_user", "test_pass")
     )
 
-    assert response.status_code == 200
+    check_status_code(response, 200)
 
     token = response.json()["access_token"]
     session.headers.update({"Authorization": f"Bearer {token}"})
@@ -37,7 +55,7 @@ class TestCarsSearch:
             auth=HTTPBasicAuth("test_user", "test_pass")
         )
 
-        assert response.status_code == 200
+        check_status_code(response, 200)
 
         assert "access_token" in response.json()
 
@@ -55,30 +73,19 @@ class TestCarsSearch:
     )
     def test_cars_response(self, authorized_session, limit, expected_count):
         logging.info(f"Checking cars response: limit={limit}")
+
         response = authorized_session.get(
             "http://127.0.0.1:8080/cars",
             params={"limit": limit}
         )
 
-        try:
-            assert response.status_code == 200, (
-            f"Expected status code 200, got {response.status_code}"
-        )
+        check_status_code(response, 200)
 
-            cars = response.json()
+        cars = response.json()
 
-            assert isinstance(cars, list)
-            assert len(cars) == expected_count
-
-            for car in cars:
-                assert "brand" in car
-                assert "engine_volume" in car
-                assert "year" in car
-                assert "price" in car
-
-        except AssertionError as error:
-            logging.error(f"Test failed: {error}")
-            raise
+        with soft_assertions():
+            assert_that(cars).is_instance_of(list)
+            assert_that(len(cars)).is_equal_to(expected_count)
 
         logging.info(f"Cars response is valid: received {len(cars)} cars")
 
@@ -94,53 +101,32 @@ class TestCarsSearch:
             params={"sort_by": sort_by}
         )
 
-        try:
-            assert response.status_code == 200, (
-            f"Expected status code 200, got {response.status_code}"
-        )
+        check_status_code(response, 200)
 
-            cars = response.json()
+        cars = response.json()
+        values = [car[sort_by] for car in cars]
 
-            values = [car[sort_by] for car in cars]
-            assert values == sorted(values), (
+        assert values == sorted(values), (
             f"Cars are not sorted by '{sort_by}'"
         )
 
-        except AssertionError as error:
-            logging.error(f"Cars sorting test failed: {error}")
-            raise
-
         logging.info(f"Cars are correctly sorted by '{sort_by}'")
-
-
     def test_type_of_data(self, authorized_session):
-
         logging.info("Checking data types in cars response")
 
-        response = authorized_session.get("http://127.0.0.1:8080/cars"
+        response = authorized_session.get(
+            "http://127.0.0.1:8080/cars"
         )
+
+        check_status_code(response, 200)
+
+        cars = response.json()
+        schema = CarsSchema(many=True)
+
         try:
-            assert response.status_code == 200, (
-            f"Expected status code 200, got {response.status_code}"
-        )
-
-            cars = response.json()
-
-            for car in cars:
-                assert isinstance(car["brand"], str), (
-                    f"Expected brand to be str, got {type(car['brand']).__name__}"
-                )
-                assert isinstance(car["engine_volume"], (int, float)), (
-                    f"Expected engine_volume to be numeric, got {type(car['engine_volume']).__name__}"
-                )
-                assert isinstance(car["year"], int), (
-                    f"Expected year to be int, got {type(car['year']).__name__}"
-                )
-                assert isinstance(car["price"], (int, float)), (
-                    f"Expected price to be numeric, got {type(car['price']).__name__}"
-                )
-        except AssertionError as error:
-            logging.error(f"Data types test failed: {error}")
+            schema.load(cars)
+        except ValidationError as error:
+            logging.error(f"Data validation failed: {error.messages}")
             raise
 
         logging.info(f"Data types are valid for {len(cars)} cars")
@@ -151,14 +137,7 @@ class TestCarsSearch:
 
         response = requests.get("http://127.0.0.1:8080/cars")
 
-        try:
-            assert response.status_code == 401, (
-                f"Expected status code 401, got {response.status_code}"
-            )
-
-        except AssertionError as error:
-            logging.error(f"Unauthorized access test failed: {error}")
-            raise
+        check_status_code(response, 401)
 
         logging.info("Unauthorized access correctly rejected")
 
@@ -170,14 +149,7 @@ class TestCarsSearch:
             auth=HTTPBasicAuth("unknown_user", "test_pass")
         )
 
-        try:
-            assert response.status_code == 401, (
-                f"Expected status code 401, got {response.status_code}"
-            )
-
-        except AssertionError as error:
-            logging.error(f"Unknown user login test failed: {error}")
-            raise
+        check_status_code(response, 401)
 
         logging.info("Login correctly rejected for an unknown user")
 
@@ -190,14 +162,7 @@ class TestCarsSearch:
             auth=HTTPBasicAuth("test_user", "wrong_pass")
         )
 
-        try:
-            assert response.status_code == 401, (
-                f"Expected status code 401, got {response.status_code}"
-            )
-
-        except AssertionError as error:
-            logging.error(f"Login with a wrong password test failed: {error}")
-            raise
+        check_status_code(response, 401)
 
         logging.info("Login correctly rejected with a wrong password")
 
@@ -208,16 +173,7 @@ class TestCarsSearch:
             "http://127.0.0.1:8080/cars",
             headers={"Authorization": "Bearer invalid_token"}
         )
-        try:
-            assert response.status_code == 422, (
-                f"Expected status code 422, got {response.status_code}"
-            )
-        except AssertionError as error:
-            logging.error(f"Login with a wrong password test failed: {error}")
-            raise
+        check_status_code(response, 422)
         logging.info("Login correctly rejected with a wrong password")
-
-
-
 
 
