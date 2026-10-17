@@ -1,9 +1,8 @@
 import pytest
-import requests
-from requests.auth import HTTPBasicAuth
 import logging
 from assertpy import assert_that, soft_assertions
 from marshmallow import Schema, fields, ValidationError
+from cars_controller import CarsController
 
 logging.basicConfig(
     level=logging.INFO,
@@ -23,37 +22,30 @@ class CarsSchema(Schema):
 
 
 def check_status_code(response, expected_status_code):
-    try:
-        assert response.status_code == expected_status_code, (
-            f"Expected status code {expected_status_code}, "
-            f"got {response.status_code}"
-        )
-    except AssertionError as error:
-        logging.error(f"Status code check failed: {error}")
-        raise
 
-@pytest.fixture(scope="class")
-def authorized_session():
-    session = requests.Session()
-    response = session.post(
-        "http://127.0.0.1:8080/auth",
-        auth=HTTPBasicAuth("test_user", "test_pass")
+    assert response.status_code == expected_status_code, (
+        f"Expected status code {expected_status_code}, "
+        f"got {response.status_code}"
     )
 
+@pytest.fixture(scope="class")
+def controller():
+    return CarsController()
+
+
+@pytest.fixture(scope="class")
+def authorized_session(controller):
+    response = controller.login("test_user", "test_pass")
     check_status_code(response, 200)
 
     token = response.json()["access_token"]
-    session.headers.update({"Authorization": f"Bearer {token}"})
-    return session
+    return token
 
 class TestCarsSearch:
 
-    def test_login_success(self):
+    def test_login_success(self, controller):
         logging.info("Starting successful login test")
-        response = requests.post(
-            "http://127.0.0.1:8080/auth",
-            auth=HTTPBasicAuth("test_user", "test_pass")
-        )
+        response = controller.login("test_user", "test_pass")
 
         check_status_code(response, 200)
 
@@ -71,12 +63,12 @@ class TestCarsSearch:
             (10, 10),
         ]
     )
-    def test_cars_response(self, authorized_session, limit, expected_count):
+    def test_cars_response(self, controller, authorized_session, limit, expected_count):
         logging.info(f"Checking cars response: limit={limit}")
 
-        response = authorized_session.get(
-            "http://127.0.0.1:8080/cars",
-            params={"limit": limit}
+        response = controller.get_cars(
+            limit=limit,
+            token=authorized_session
         )
 
         check_status_code(response, 200)
@@ -87,18 +79,23 @@ class TestCarsSearch:
             assert_that(cars).is_instance_of(list)
             assert_that(len(cars)).is_equal_to(expected_count)
 
+            for car in cars:
+                assert_that(car).contains_key(
+                    "brand", "engine_volume", "year", "price"
+                )
+
         logging.info(f"Cars response is valid: received {len(cars)} cars")
 
     @pytest.mark.parametrize(
         "sort_by",
         ["price", "brand", "year", "engine_volume"]
     )
-    def test_cars_sorting(self, authorized_session, sort_by):
+    def test_cars_sorting(self, controller, authorized_session, sort_by):
         logging.info(f"Checking cars sorting: sort_by={sort_by}")
 
-        response = authorized_session.get(
-            "http://127.0.0.1:8080/cars",
-            params={"sort_by": sort_by}
+        response = controller.get_cars(
+            sort_by=sort_by,
+            token=authorized_session
         )
 
         check_status_code(response, 200)
@@ -111,12 +108,10 @@ class TestCarsSearch:
         )
 
         logging.info(f"Cars are correctly sorted by '{sort_by}'")
-    def test_type_of_data(self, authorized_session):
+    def test_type_of_data(self, controller, authorized_session):
         logging.info("Checking data types in cars response")
 
-        response = authorized_session.get(
-            "http://127.0.0.1:8080/cars"
-        )
+        response = controller.get_cars(token=authorized_session)
 
         check_status_code(response, 200)
 
@@ -131,49 +126,42 @@ class TestCarsSearch:
 
         logging.info(f"Data types are valid for {len(cars)} cars")
 
-    def test_unauthorized_access(self):
+    def test_unauthorized_access(self, controller):
 
         logging.info("Checking access to cars without authorization")
 
-        response = requests.get("http://127.0.0.1:8080/cars")
+        response = controller.get_cars()
 
         check_status_code(response, 401)
 
         logging.info("Unauthorized access correctly rejected")
 
-    def test_login_unknown_user(self):
+    def test_login_unknown_user(self, controller):
         logging.info("Checking login with an unknown username")
 
-        response = requests.post(
-            "http://127.0.0.1:8080/auth",
-            auth=HTTPBasicAuth("unknown_user", "test_pass")
-        )
+        response = controller.login("unknown_user", "test_pass")
 
         check_status_code(response, 401)
 
         logging.info("Login correctly rejected for an unknown user")
 
-    def test_login_wrong_password(self):
+    def test_login_wrong_password(self, controller):
 
         logging.info("Checking login with a wrong password")
 
-        response = requests.post(
-            "http://127.0.0.1:8080/auth",
-            auth=HTTPBasicAuth("test_user", "wrong_pass")
-        )
+        response = controller.login("test_user", "qwerty")
 
         check_status_code(response, 401)
 
         logging.info("Login correctly rejected with a wrong password")
 
-    def test_invalid_token(self):
-        logging.info("Checking login with an invalid token")
+    def test_invalid_token(self, controller):
+        logging.info("Checking access with an invalid token")
 
-        response = requests.get(
-            "http://127.0.0.1:8080/cars",
-            headers={"Authorization": "Bearer invalid_token"}
-        )
+        response = controller.get_cars(token="invalid_token")
+
         check_status_code(response, 422)
-        logging.info("Login correctly rejected with a wrong password")
+
+        logging.info("Invalid token correctly rejected")
 
 
