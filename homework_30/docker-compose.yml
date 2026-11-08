@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:17
+    container_name: homework30_db
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: homework29
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test_user -d homework29"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: homework30_app
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: homework29
+      DB_USER: test_user
+      DB_PASSWORD: test_password
+    volumes:
+      - ./allure-results:/app/allure-results
+
+volumes:
+  postgres_data:
