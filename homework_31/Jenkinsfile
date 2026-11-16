@@ -57,6 +57,7 @@ PY
     post {
         always {
             emailext(
+                to: 'fm2801@ukr.net',
                 subject: "Jenkins: ${env.JOB_NAME} #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
                 body: """
                     Pipeline: ${env.JOB_NAME}
