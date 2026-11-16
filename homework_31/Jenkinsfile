@@ -53,4 +53,18 @@ PY
             }
         }
     }
+
+    post {
+        always {
+            emailext(
+                subject: "Jenkins: ${env.JOB_NAME} #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
+                body: """
+                    Pipeline: ${env.JOB_NAME}
+                    Build: #${env.BUILD_NUMBER}
+                    Result: ${currentBuild.currentResult}
+                    Build details: ${env.BUILD_URL}
+                """
+            )
+        }
+    }
 }
