@@ -1,0 +1,56 @@
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Install dependencies') {
+            steps {
+                sh 'python3 -m venv .venv'
+                sh '.venv/bin/pip install -r requirements.txt'
+            }
+        }
+
+        stage('Run tests') {
+            steps {
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    sh '''
+                        .venv/bin/python -c "from homework_24.cars_app import app; app.run(host='127.0.0.1', port=5001, debug=False)" > flask.log 2>&1 &
+                        SERVER_PID=$!
+                        trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
+
+                        .venv/bin/python - <<'PY'
+import time
+import urllib.request
+import urllib.error
+
+for attempt in range(30):
+    try:
+        urllib.request.urlopen("http://127.0.0.1:5001", timeout=2)
+        break
+    except urllib.error.HTTPError:
+        break
+    except urllib.error.URLError:
+        time.sleep(1)
+else:
+    raise RuntimeError("Flask API did not start")
+PY
+
+                        .venv/bin/pytest homework_24/test_cars.py -v --junitxml=results.xml
+                    '''
+                }
+            }
+        }
+
+        stage('Publish test results') {
+            steps {
+                junit 'results.xml'
+            }
+        }
+    }
+}
