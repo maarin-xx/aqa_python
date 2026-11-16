@@ -4,7 +4,7 @@ from requests.auth import HTTPBasicAuth
 
 
 class CarsController:
-    BASE_URL = "http://127.0.0.1:8080"
+    BASE_URL = "http://127.0.0.1:5001"
 
     def __init__(self):
         self.session = requests.Session()
